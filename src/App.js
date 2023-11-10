@@ -8,7 +8,9 @@ function App() {
     { title: "moo moo farm", id: 3 },
   ]);
 
-  const handleClick = () => {};
+  const handleClick = (id) => {
+    setEvents((events) => events.filter((event) => event.id !== id));
+  };
 
   return (
     <div className="App">
@@ -17,7 +19,7 @@ function App() {
           <h2>
             {index + 1} - {event.title}
           </h2>
-          <button onClick={handleClick}>Delete</button>
+          <button onClick={() => handleClick(event.id)}>Delete event</button>
         </div>
       ))}
     </div>
