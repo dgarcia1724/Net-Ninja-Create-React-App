@@ -8,13 +8,14 @@ import NewEventForm from "./components/NewEventForm";
 function App() {
   const [showModal, setShowModal] = useState(false);
   const [showEvents, setShowEvents] = useState(true);
-  const [events, setEvents] = useState([
-    { title: "mario's birthday bash", id: 1 },
-    { title: "bowser", id: 2 },
-    { title: "moo moo farm", id: 3 },
-  ]);
+  const [events, setEvents] = useState([]);
 
-  console.log(showModal);
+  const addEvent = (event) => {
+    setEvents((prevEvents) => {
+      return [...prevEvents, event];
+    });
+    setShowModal(false);
+  };
 
   const handleClick = (id) => {
     setEvents((events) => events.filter((event) => event.id !== id));
@@ -27,10 +28,6 @@ function App() {
     setShowEvents(true);
   };
 
-  const handleClose = () => {
-    setShowModal(false);
-  };
-
   const handleOpen = () => {
     setShowModal(true);
   };
@@ -40,7 +37,6 @@ function App() {
   return (
     <div className="App">
       <Title title="Events in your area" subtitle={subtitle} />
-      <Title title="another title" subtitle="another subtitle" />
 
       {showEvents && (
         <div>
@@ -54,8 +50,8 @@ function App() {
       )}
       {showEvents && <EventList events={events} handleClick={handleClick} />}
       {showModal && (
-        <Modal handleClose={handleClose} isSalesModal={true}>
-          <NewEventForm />
+        <Modal isSalesModal={true}>
+          <NewEventForm addEvent={addEvent} />
         </Modal>
       )}
       <div>
