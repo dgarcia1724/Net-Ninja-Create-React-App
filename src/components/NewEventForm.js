@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./NewEventForm.css";
 
 function NewEventForm({ addEvent }) {
@@ -14,6 +14,7 @@ function NewEventForm({ addEvent }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(title, date);
 
     const event = {
       title: title,
@@ -32,11 +33,7 @@ function NewEventForm({ addEvent }) {
     <form className="new-event-form" onSubmit={handleSubmit}>
       <label>
         <span>Event Title:</span>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+        <input type="text" ref={title} />
       </label>
       <label>
         <span>Event Date:</span>
